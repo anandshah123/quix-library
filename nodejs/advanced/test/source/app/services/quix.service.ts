@@ -13,8 +13,8 @@ export class QuixService {
 
     private token: string = "{placeholder:token}";
     public workspaceId: string = "{placeholder:workspaceId}";
-    public messagesTopic: string = "${Quix__Workspace__Id}";
-    public sentimentTopic: string = "${sentiment}";
+    public messagesTopic: string = "";
+    public sentimentTopic: string = "";
 
 
     readonly subdomain = "platform";
@@ -31,21 +31,18 @@ export class QuixService {
         const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
         let messagesTopic$ = this.httpClient.get(this.server + "messages_topic", {headers, responseType: 'text'});
         let sentimentTopic$ = this.httpClient.get(this.server + "sentiment_topic", {headers, responseType: 'text'});
-        let workspaceId$ = this.httpClient.get(this.server + "workspace_id", {headers, responseType: 'text'});
 
         let value$ = combineLatest(
             messagesTopic$,
             sentimentTopic$,
-            workspaceId$
-        ).pipe(map(([messagesTopic, sentimentTopic, workspaceId])=>{
-            return {messagesTopic, sentimentTopic, workspaceId};
+        ).pipe(map(([messagesTopic, sentimentTopic])=>{
+            return {messagesTopic, sentimentTopic};
         }));
 
         value$.subscribe(vals => {
             this.messagesTopic = vals.messagesTopic;
             this.sentimentTopic = vals.sentimentTopic;
-            this.workspaceId = vals.workspaceId;
-            this.ConnectToQuix(vals.workspaceId);
+            this.ConnectToQuix(this.workspaceId);
         });
     }
 
