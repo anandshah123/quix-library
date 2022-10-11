@@ -13,8 +13,8 @@ export class QuixService {
 
     private token: string = "{placeholder:token}";
     public workspaceId: string = "{placeholder:workspaceId}";
-    public messagesTopic: string = "{placeholder:messages}";
-    public sentimentTopic: string = "{placeholder:sentiment}";
+    public messagesTopic: string = "${Quix__Workspace__Id}";
+    public sentimentTopic: string = "${sentiment}";
 
 
     readonly subdomain = "platform";
