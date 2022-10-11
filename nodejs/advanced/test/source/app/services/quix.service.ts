@@ -12,9 +12,9 @@ import {MessagePayload} from "../components/webchat/webchat.component";
 export class QuixService {
 
     private token: string = "{placeholder:token}";
-    public workspaceId: string = "";
-    public messagesTopic: string = "";
-    public sentimentTopic: string = "";
+    public workspaceId: string = "{placeholder:workspaceId}";
+    public messagesTopic: string = "{placeholder:messages}";
+    public sentimentTopic: string = "{placeholder:sentiment}";
 
 
     readonly subdomain = "platform";
