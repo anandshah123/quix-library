@@ -8,26 +8,24 @@
 		"Pipeline Stage": ["Source"]
 	},
 	"shortDescription": "An Angular UI for the TFL image processing demo",
-	"DefaultFile": "source/main.ts",
+	"DefaultFile": "source/app/services/quix.service.ts",
 	"EntryPoint": "source/build/dockerfile",
 	"Variables": [
 		{
-			"Name" : "processed",
+			"Name" : "sentiment",
 			"Type" : "EnvironmentVariable",
 			"InputType" : "InputTopic",
 			"Description" : "The topic to read from",
-			"DefaultValue" : "image-processed-merged",
+			"DefaultValue" : "",
+			"Required": true
+		},
+		{
+			"Name" : "messages",
+			"Type" : "EnvironmentVariable",
+			"InputType" : "InputTopic",
+			"Description" : "The topic to read from",
+			"DefaultValue" : "",
 			"Required": true
 		}
-	],
-	"DeploySettings":
-	{
-		"DeploymentType": "Service",
-		"CpuMillicores": 200,
-		"MemoryInMb": 200,
-		"Replicas": 1,
-		"PublicAccess": true,
-		"UrlPrefix": "tfl-demo-ui",
-		"ValidateConnection": false
-	}
+	]
 }
