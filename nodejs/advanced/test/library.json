@@ -9,7 +9,7 @@
 	},
 	"shortDescription": "An Angular UI for the TFL image processing demo",
 	"DefaultFile": "source/main.ts",
-	"EntryPoint": "build/dockerfile",
+	"EntryPoint": "source/build/dockerfile",
 	"Variables": [
 		{
 			"Name" : "processed",
