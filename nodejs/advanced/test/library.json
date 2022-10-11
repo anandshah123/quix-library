@@ -4,8 +4,7 @@
 	"language": "NodeJs",
 	"tags": {
 		"Complexity": ["Medium"],
-		"SDK Usage": ["Read SDK"],
-		"Pipeline Stage": ["Source"]
+		"SDK Usage": ["Read SDK"]
 	},
 	"shortDescription": "An Angular UI for the sentiment analysis demo",
 	"DefaultFile": "source/app/services/quix.service.ts",
@@ -27,5 +26,15 @@
 			"DefaultValue" : "messages",
 			"Required": true
 		}
-	]
+	],
+	"DeploySettings":
+	{
+		"DeploymentType": "Service",
+		"CpuMillicores": 200,
+		"MemoryInMb": 200,
+		"Replicas": 1,
+		"PublicAccess": true,
+		"UrlPrefix": "sentiment-demo-ui",
+		"ValidateConnection": false
+	}
 }
