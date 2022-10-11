@@ -1,13 +1,13 @@
 {
-	"libraryItemId": "8f40b017-0753-494a-9f1d-2284cf10cab3",
-	"name": "test test test ",
+	"libraryItemId": "8f40b017-0753-494a-9f1d-2284cf10cab4",
+	"name": "Sentiment Demo UI",
 	"language": "NodeJs",
 	"tags": {
 		"Complexity": ["Medium"],
 		"SDK Usage": ["Read SDK"],
 		"Pipeline Stage": ["Source"]
 	},
-	"shortDescription": "An Angular UI for the TFL image processing demo",
+	"shortDescription": "An Angular UI for the sentiment analysis demo",
 	"DefaultFile": "source/app/services/quix.service.ts",
 	"EntryPoint": "source/build/dockerfile",
 	"Variables": [
@@ -16,7 +16,7 @@
 			"Type" : "EnvironmentVariable",
 			"InputType" : "InputTopic",
 			"Description" : "The topic to read from",
-			"DefaultValue" : "",
+			"DefaultValue" : "sentiment",
 			"Required": true
 		},
 		{
@@ -24,7 +24,7 @@
 			"Type" : "EnvironmentVariable",
 			"InputType" : "InputTopic",
 			"Description" : "The topic to read from",
-			"DefaultValue" : "",
+			"DefaultValue" : "messages",
 			"Required": true
 		}
 	]
