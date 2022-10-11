@@ -8,7 +8,7 @@
 		"Pipeline Stage": ["Source"]
 	},
 	"shortDescription": "An Angular UI for the TFL image processing demo",
-	"DefaultFile": "main.ts",
+	"DefaultFile": "source/main.ts",
 	"EntryPoint": "build/dockerfile",
 	"Variables": [
 		{
