@@ -83,12 +83,18 @@ export class WebchatComponent implements OnInit {
 
   public async send(){
     await this.quixService.sendMessage(this.room, "Customer", this.name, this.message, this.phone, this.email);
-    console.log("Sent");
     this.message = "";
   }
 
   async ngOnInit(): Promise<void> {
+    this.quixService.loaded.subscribe(x => {
+      console.log("got value " + x)
+      if(x == true) this.Init();
+    });
+    //this.quixService.loaded.share
+  }
 
+  async Init(){
     this.room = this.route.snapshot.params["room"];
     this.name = this.route.snapshot.params["name"];
     this.phone = this.route.snapshot.queryParams["phone"];
@@ -154,7 +160,6 @@ export class WebchatComponent implements OnInit {
       });
 
       this.quixService.readerConnection.on('EventDataReceived', (payload) => {
-
         let message = this.messages.find(f => f.timestamp == payload.timestamp && f.name == payload.tags["name"]);
 
         let chatMessage = payload.value;
@@ -168,15 +173,14 @@ export class WebchatComponent implements OnInit {
           });
         }
 
-        if (payload.numericValues["average_sentiment"]) {
+        if (payload.numericValues !== undefined && payload.numericValues["average_sentiment"]) {
           this.sentiment = payload.numericValues["average_sentiment"][0];
 
           let row = {
-
             x: Date.now(),
-
             y: this.sentiment
           }
+
           this.datasets[0].data.push(row as any)
         }
 
@@ -196,6 +200,7 @@ export class WebchatComponent implements OnInit {
   }
 
   connect() {
+
     this.quixService.readerConnection.invoke('SubscribeToEvent', this.quixService.messagesTopic, this.room, 'chat-message');
     this.quixService.readerConnection.invoke('SubscribeToParameter', this.quixService.sentimentTopic, this.room + "-output", 'sentiment');
     this.quixService.readerConnection.invoke('SubscribeToParameter', this.quixService.sentimentTopic, this.room + "-output", 'chat-message');
@@ -214,6 +219,4 @@ export class WebchatComponent implements OnInit {
   public getDateFromEpoch(epoch: number){
     return new Date(epoch / 1000000)
   }
-
-
 }

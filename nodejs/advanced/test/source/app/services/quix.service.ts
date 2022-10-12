@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {combineLatest, Observable} from "rxjs";
+import {BehaviorSubject, combineLatest, Observable, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {HubConnection, HubConnectionBuilder, IHttpConnectionOptions} from "@microsoft/signalr";
 import {map} from "rxjs/operators";
@@ -11,11 +11,12 @@ import {MessagePayload} from "../components/webchat/webchat.component";
 })
 export class QuixService {
 
+    /*WORKING LOCALLY? UPDATE THESE!*/
     private token: string = "{placeholder:token}";
     public workspaceId: string = "{placeholder:workspaceId}";
     public messagesTopic: string = "";
     public sentimentTopic: string = "";
-
+    /*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
 
     readonly subdomain = "platform";
     readonly server = "" // leave blank
@@ -24,6 +25,7 @@ export class QuixService {
     public readerConnectionPromise: Promise<void>;
     public writerConnection: HubConnection;
     public writerConnectionPromise: Promise<void>;
+    public loaded: BehaviorSubject<any> = new BehaviorSubject<any>(false);
 
     constructor(
         private httpClient: HttpClient) {
@@ -42,11 +44,13 @@ export class QuixService {
         value$.subscribe(vals => {
             this.messagesTopic = vals.messagesTopic;
             this.sentimentTopic = vals.sentimentTopic;
+
             this.ConnectToQuix(this.workspaceId);
         });
     }
 
     private ConnectToQuix(workspaceId){
+
         const options: IHttpConnectionOptions = {
             accessTokenFactory: () => this.token,
         };
@@ -63,10 +67,12 @@ export class QuixService {
             .withAutomaticReconnect()
             .build();
 
+        this.loaded.next(true);
         this.writerConnectionPromise = this.writerConnection.start();
     }
 
     public getLastMessages(room: string): Observable<MessagePayload[]> {
+
         let payload =
             {
                 'numericParameters': [
